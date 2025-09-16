@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://172.19.0.3:5432/packet-dpi
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-server: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    topics:
+      capTopic: "wk-capture"
+    streams:
+      properties:
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
+        default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+        spring.json.trusted.packages: "*"
+      state-dir: /tmp/kafka-streams/
+
+resilience4j:
+  retry:
+    instances:
+      sample-api:
+        maxRetryAttempts: 5
+        waitDuration: 1s
+        enableExponentialBackoff: off
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8061/eureka/
+

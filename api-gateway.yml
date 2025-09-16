@@ -1,0 +1,21 @@
+server:
+  port: 8765
+spring:
+  application.name: api-gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:3000/realms/demo/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:           
+            issuer-uri: http://localhost:3000/realms/master
+        registration:
+          spring-with-test-scope:
+            provider: keycloak
+            client-id: spring-with-test-scope
+            client-secret: ORtxHOZzpG9SzmkN4aVWgHd5qxEBcORq
+            authorization-grant-type: authorization_code
+            scope: openid
+              
