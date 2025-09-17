@@ -9,5 +9,3 @@ eureka:
   client:
     registerWithEureka: false
     fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://localhost:8061/eureka/
